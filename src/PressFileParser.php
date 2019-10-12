@@ -1,10 +1,7 @@
 <?php
 
-
 namespace topolski\Press;
 
-
-use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 
 class PressFileParser
@@ -50,10 +47,14 @@ class PressFileParser
     protected function processFields()
     {
         foreach ($this->data as $key => $value) {
-            if ($key === 'date') {
-                $this->data[$key] = Carbon::parse($value);
-            } else if ($key === 'body') {
-                $this->data[$key] = MarkdownParser::parse($value);
+
+            $class = 'topolski\\Press\\Fields\\' . $key;
+
+            if (class_exists($class) && method_exists($class, 'process')) {
+                $this->data = array_merge(
+                    $this->data,
+                    $class::process($key, $value)
+                );
             }
         }
     }

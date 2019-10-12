@@ -11,5 +11,15 @@
     "require": {},
     "require-dev": {
         "orchestra/testbench": "^4.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "topolski\\Press\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "topolski\\Press\\Tests\\": "tests/"
+        }
     }
 }

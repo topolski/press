@@ -1,0 +1,15 @@
+{
+    "name": "topolski/press",
+    "description": "An elegant markdown-powered blog for the Laravel framework.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Milanko Topolski",
+            "email": "tope1991@gmail.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "orchestra/testbench": "^4.2"
+    }
+}

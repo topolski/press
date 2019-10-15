@@ -3,7 +3,6 @@
 namespace topolski\Press\Tests;
 
 use Carbon\Carbon;
-use Orchestra\Testbench\TestCase;
 use topolski\Press\PressFileParser;
 
 class PressFileParserTest extends TestCase

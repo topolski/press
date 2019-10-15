@@ -2,7 +2,6 @@
 
 namespace topolski\Press\Tests;
 
-use Orchestra\Testbench\TestCase;
 use topolski\Press\MarkdownParser;
 
 class MarkdownTest extends TestCase

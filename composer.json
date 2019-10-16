@@ -23,5 +23,12 @@
         "psr-4": {
             "topolski\\Press\\Tests\\": "tests/"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "topolski\\Press\\PressBaseServiceProvider"
+            ]
+        }
     }
 }

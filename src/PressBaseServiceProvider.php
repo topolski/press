@@ -8,6 +8,11 @@ use topolski\Press\Facades\Press;
 
 class PressBaseServiceProvider extends ServiceProvider
 {
+    /**
+     * Bootstrap any package services.
+     *
+     * @return void
+     */
     public function boot()
     {
         if ($this->app->runningInConsole()) {
@@ -17,6 +22,11 @@ class PressBaseServiceProvider extends ServiceProvider
         $this->registerResources();
     }
 
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
     public function register()
     {
         $this->commands([
@@ -24,6 +34,11 @@ class PressBaseServiceProvider extends ServiceProvider
         ]);
     }
 
+    /**
+     * Register the package resources.
+     *
+     * @return void
+     */
     private function registerResources()
     {
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
@@ -33,6 +48,11 @@ class PressBaseServiceProvider extends ServiceProvider
         $this->registerRoutes();
     }
 
+    /**
+     * Register the package's publishable resources.
+     *
+     * @return void
+     */
     protected function registerPublishing()
     {
         $this->publishes([
@@ -40,6 +60,11 @@ class PressBaseServiceProvider extends ServiceProvider
         ], 'press-config');
     }
 
+    /**
+     * Register the package routes.
+     *
+     * @return void
+     */
     protected function registerRoutes()
     {
         Route::group($this->routeConfiguration(), function() {
@@ -47,6 +72,11 @@ class PressBaseServiceProvider extends ServiceProvider
         });
     }
 
+    /**
+     * Get the Press route group configuration array.
+     *
+     * @return array
+     */
     protected function routeConfiguration()
     {
         return [
@@ -55,6 +85,11 @@ class PressBaseServiceProvider extends ServiceProvider
         ];
     }
 
+    /**
+     * Register any bindings to the app.
+     *
+     * @return void
+     */
     protected function registerFacades()
     {
         $this->app->singleton('Press', function ($app) {

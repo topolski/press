@@ -61,6 +61,8 @@ abstract class Driver
      * @param $identifier
      *
      * @return void
+     *
+     * @throws \ReflectionException
      */
     protected function parse($content, $identifier)
     {

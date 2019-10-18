@@ -20,12 +20,13 @@ class ProcessCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Updates blog posts.';
+    protected $description = 'Update blog posts.';
 
     /**
      * Execute the console command.
      *
-     * @param PostRepository $postRepository
+     * @param \topolski\Press\Repositories\PostRepository $postRepository
+     *
      * @return mixed
      */
     public function handle(PostRepository $postRepository)

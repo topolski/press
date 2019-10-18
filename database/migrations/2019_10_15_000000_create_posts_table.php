@@ -17,8 +17,8 @@ class CreatePostsTable extends Migration
             $table->text('extra');
             $table->timestamps();
 
-            $table->index('create_at');
-            $table->index('update_at');
+            $table->index('created_at');
+            $table->index('updated_at');
         });
     }
 

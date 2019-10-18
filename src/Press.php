@@ -7,6 +7,11 @@ use Illuminate\Support\Str;
 class Press
 {
     /**
+     * @var array
+     */
+    protected $fields = [];
+
+    /**
      * Check if Press config file has been published and set.
      *
      * @return bool
@@ -24,14 +29,38 @@ class Press
     public function driver()
     {
         $driver = Str::title(config('press.driver'));
-
         $class = 'topolski\Press\Drivers\\' . $driver . 'Driver';
 
         return new $class;
     }
 
+    /**
+     * Get the currently set URI path for the blog.
+     *
+     * @return string
+     */
     public function routePrefix()
     {
         return config('press.prefix', 'blogs');
+    }
+
+    /**
+     * Merges an array of fields into the fields variable.
+     *
+     * @param array $fields
+     */
+    public function fields(array $fields)
+    {
+        $this->fields = array_merge($this->fields, $fields);
+    }
+
+    /**
+     * Returns the list of available fields in reverse order.
+     *
+     * @return array
+     */
+    public function availableFields()
+    {
+        return array_reverse($this->fields);
     }
 }

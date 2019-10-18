@@ -3,6 +3,9 @@
 namespace topolski\Press;
 
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
+use ReflectionClass;
+use topolski\Press\Facades\Press;
 
 class PressFileParser
 {
@@ -25,6 +28,8 @@ class PressFileParser
      * PressFileParser constructor.
      *
      * @param $filename
+     *
+     * @throws \ReflectionException
      */
     public function __construct($filename)
     {
@@ -92,12 +97,14 @@ class PressFileParser
      * all class called Extra, where they will be merged and JSON encoded in extra.
      *
      * @return void
+     *
+     * @throws \ReflectionException
      */
     protected function processFields()
     {
-        foreach ($this->data as $key => $value) {
+        foreach ($this->data as $field => $value) {
 
-            $class = 'topolski\\Press\\Fields\\' . $key;
+            $class = $this->getField(Str::title($field));
 
             if ( ! class_exists($class) && ! method_exists($class, 'process')) {
                 $class = 'topolski\\Press\\Fields\\Extra';
@@ -105,8 +112,28 @@ class PressFileParser
 
             $this->data = array_merge(
                 $this->data,
-                $class::process($key, $value, $this->data)
+                $class::process($field, $value, $this->data)
             );
+        }
+    }
+
+    /**
+     * Attempt to find a field by the same name out of the array of available fields.
+     *
+     * @param $field
+     *
+     * @return string
+     *
+     * @throws \ReflectionException
+     */
+    private function getField($field)
+    {
+        foreach (Press::availableFields() as $availableField) {
+            $class = new ReflectionClass($availableField);
+
+            if ($class->getShortName() == $field) {
+                return $class->getName();
+            }
         }
     }
 }
